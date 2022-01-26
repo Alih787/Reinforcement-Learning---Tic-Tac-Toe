@@ -18,18 +18,18 @@ namespace TicTacToe
             {
                 if (Enabled)
                 {
-                    return i switch
+                    switch (i)
                     {
-                        0 => "A1",
-                        1 => "A2",
-                        2 => "A3",
-                        3 => "B1",
-                        4 => "B2",
-                        5 => "B3",
-                        6 => "C1",
-                        7 => "C2",
-                        8 => "C3",
-                        _ => "Null",
+                        case 0: return "A1";
+                        case 1: return "A2";
+                        case 2: return "A3";
+                        case 3: return "B1";
+                        case 4: return "B2";
+                        case 5: return "B3";
+                        case 6: return "C1";
+                        case 7: return "C2";
+                        case 8: return "C3";
+                        default: return "Null";
                     };
                 }
                 else
@@ -49,7 +49,7 @@ namespace TicTacToe
             }
             static public void IInput(string input)
             {
-                if (Enabled&&Link.loggers.indepth)
+                if (Enabled && Link.loggers.indepth)
                 {
                     Logger.Invoke((Action)delegate
                     {

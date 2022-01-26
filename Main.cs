@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace TicTacToe
 {
@@ -32,7 +32,7 @@ namespace TicTacToe
             Link.Main = ((Main)this.FindForm());
             NodeSystem.MakeFolderStructure();
             NodeSystem.MModel = NodeSystem.Noding.BinConvert.Deserial(@".\Model.bin");
-        } 
+        }
 
         ///<summary>
         ///<para>updates turn count</para>
@@ -51,13 +51,14 @@ namespace TicTacToe
             {
                 tall.Text = $"Turn : {turntally}";
             }
-        } 
+        }
         ///<summary>
         ///<para>changes to allow game input</para>
         ///</summary>
         void Ingame(bool ingame)
         {
-            if (Training){
+            if (Training)
+            {
                 MPlayer.Enabled = false;
                 GoFirst.Enabled = false;
                 StartB.Enabled = false;
@@ -81,7 +82,7 @@ namespace TicTacToe
                 bots.Enabled = true;
                 BvBRepeater.ReadOnly = false;
             }
-        } 
+        }
         ///<summary>
         ///<para>switches turns over</para>
         ///</summary>
@@ -136,7 +137,8 @@ namespace TicTacToe
             }
             else if (bots.Checked)
             {
-                if (Training) {
+                if (Training)
+                {
                     gamedone = true;
                 }
                 else if (Grid.CheckWinO())
@@ -155,7 +157,7 @@ namespace TicTacToe
                     gamedone = true;
                 }
             }
-            else 
+            else
             {
                 if (Grid.CheckWinO())
                 {
@@ -217,7 +219,7 @@ namespace TicTacToe
         ///<summary>
         ///<para>place X or O on board</para>
         ///</summary>
-        private void PlayerPlace(object sender,EventArgs e)
+        private void PlayerPlace(object sender, EventArgs e)
         {
             if (!ingame)
             {
@@ -258,7 +260,7 @@ namespace TicTacToe
                 Endcheck();
                 Switchturn();
             }
-            
+
 
             if (turn == Agent.XorO && !MPlayer.Checked && !Grid.CheckEnd())//if playing against agent
             {
@@ -268,10 +270,10 @@ namespace TicTacToe
                 NodeSystem.Intialisenode();
                 Endcheck();
                 Switchturn();
-                
+
             }
 
-            
+
         }
         ///<summary>
         ///<para>start button</para>
@@ -299,7 +301,7 @@ namespace TicTacToe
                 {
                     PlayerPlace(sender, e);
                 }
-                
+
             }
             else if (GoFirst.Checked)
             {
@@ -314,7 +316,7 @@ namespace TicTacToe
                 Agent.XorO = "X";
                 player1.name = "Player";
                 turn = "X";
-                PlayerPlace(sender,e);
+                PlayerPlace(sender, e);
             }
             Ingame(true);
 
@@ -376,8 +378,8 @@ namespace TicTacToe
         {
             if (bots.Checked)
             {
-                GoFirst.Checked=false;
-                MPlayer.Checked=false;
+                GoFirst.Checked = false;
+                MPlayer.Checked = false;
             }
         }
         ///<summary>
@@ -401,9 +403,9 @@ namespace TicTacToe
                     for (int i = 0; i < reper; i++)
                     {
                         trainers.progressBar.Invoke((Action)delegate { trainers.progressBar.PerformStep(); });
-                        trainers.Label.Invoke((Action)delegate { trainers.Label.Text = $"Training : {i+1}/{reper}"; });
+                        trainers.Label.Invoke((Action)delegate { trainers.Label.Text = $"Training : {i + 1}/{reper}"; });
                         Start(sender, e);
-                        Reset(sender,e);
+                        Reset(sender, e);
                     }
                     trainers.Close();
 
@@ -413,7 +415,7 @@ namespace TicTacToe
                     MessageBox.Show(a.Message);
                 }
             }
-            
+
             Training = false;
             Link.Logs.Enabled = true;
             Ingame(false);
@@ -423,7 +425,7 @@ namespace TicTacToe
         ///</summary>
         private void SliderExploreP(object sender, EventArgs e)
         {
-            Agent.ExploreP = trackBar1.Value*5;
+            Agent.ExploreP = trackBar1.Value * 5;
             percentan.Text = $"{Agent.ExploreP}% ";
 
         }
@@ -443,7 +445,7 @@ namespace TicTacToe
             {
                 Link.loggers.indepth = true;
             }
-            else if(!checkBox1.Checked)
+            else if (!checkBox1.Checked)
             {
                 Link.loggers.indepth = false;
             }

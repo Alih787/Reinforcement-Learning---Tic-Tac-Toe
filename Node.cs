@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
+using System.Windows.Forms;
 
 namespace TicTacToe
 {
@@ -27,11 +27,11 @@ namespace TicTacToe
                 {
                     if (File.Exists(path))
                     {
-                        File.Delete(path); 
+                        File.Delete(path);
                     }
                     FileStream fs = File.Open(path, FileMode.Create);
                     BinaryFormatter binFormatter = new BinaryFormatter();
-                    binFormatter.Serialize(fs , data);
+                    binFormatter.Serialize(fs, data);
                     fs.Close();
                 }
                 ///<summary>
@@ -53,7 +53,7 @@ namespace TicTacToe
                         {
                             MessageBox.Show("'Model.bin' is Corrupt. Deleting Model files");
                             File.Delete(path);
-                            Directory.Delete(@".\Model",true);
+                            Directory.Delete(@".\Model", true);
                             MakeFolderStructure();
                             return Deserial(path);
                         }
@@ -67,7 +67,7 @@ namespace TicTacToe
                 public static void ReadOff(Node node)
                 {
 
-                    Link.Logs.Input($"{string.Join(",", node.Moves)}\n{string.Join(",",node.ParentNodes)}\n{node.reward}");
+                    Link.Logs.Input($"{string.Join(",", node.Moves)}\n{string.Join(",", node.ParentNodes)}\n{node.reward}");
                 }
             }
 
@@ -132,44 +132,45 @@ namespace TicTacToe
             ///<para>Finds Matching Node In Model</para>
             ///<para>Does turn-1 To Translate To Model</para>
             ///</summary>
-            public static Node FindCurrentNode(int turn,Node Lnode)
+            public static Node FindCurrentNode(int turn, Node Lnode)
             {
                 Node node = new Node();
-                Parallel.ForEach(MModel.Turns[turn-1].MovesDone, md =>
-                 {
-                     if (md.movesdone.SequenceEqual(Lnode.Moves))
-                     {
-                         Parallel.ForEach(md.Nodes, nodes =>
-                         {
-                             if (nodes.Current.SequenceEqual(Lnode.Current)){
-                                 node = nodes;
-                             }
-                         });
-                     }
-                 });
+                Parallel.ForEach(MModel.Turns[turn - 1].MovesDone, md =>
+                   {
+                       if (md.movesdone.SequenceEqual(Lnode.Moves))
+                       {
+                           Parallel.ForEach(md.Nodes, nodes =>
+                           {
+                               if (nodes.Current.SequenceEqual(Lnode.Current))
+                               {
+                                   node = nodes;
+                               }
+                           });
+                       }
+                   });
                 return node;
             }
             ///<summary>
             ///<para>Returns All Nodes</para>
             ///<para>Does Turn-1 To Translate To Model</para>
             ///</summary>
-            public static List<Node> GetNodes(int turn,Node node)
+            public static List<Node> GetNodes(int turn, Node node)
             {
                 MovesDone movesdone = new MovesDone();
                 List<MovesDone> mvs = MModel.Turns[turn - 1].MovesDone;
-                Parallel.ForEach(mvs,mv =>
-                {
-                    if (mv.movesdone.SequenceEqual(node.Moves))
-                    {
-                        movesdone = mv;
-                    }
-                });
+                Parallel.ForEach(mvs, mv =>
+                 {
+                     if (mv.movesdone.SequenceEqual(node.Moves))
+                     {
+                         movesdone = mv;
+                     }
+                 });
                 return movesdone.Nodes;
             }
-            public static void foldermake(int turn,Node node)
+            public static void foldermake(int turn, Node node)
             {
                 bool truth = false;
-                truth = MModel.Turns[turn-1].MovesDone.AsParallel().Any(mv => mv.movesdone.SequenceEqual(node.Moves));
+                truth = MModel.Turns[turn - 1].MovesDone.AsParallel().Any(mv => mv.movesdone.SequenceEqual(node.Moves));
                 if (!truth)
                 {
                     MModel.Turns[turn - 1].MovesDone.Add(new MovesDone()
@@ -234,7 +235,7 @@ namespace TicTacToe
                 {
                     Noding.foldermake(Link.Main.turntally, PresentNode);
                     Noding.Node current = Noding.ReturnCurrentNode();
-                    Noding.GetNodes(Link.Main.turntally,current).Add(current);
+                    Noding.GetNodes(Link.Main.turntally, current).Add(current);
                     parentnode = current;
                 }
                 else
@@ -322,41 +323,41 @@ namespace TicTacToe
         {
             Random random = new Random();
             Noding.Node bestmv = new Noding.Node();
-            Noding.Node[] possiblenodes =  FindChilds(Link.Main.turntally, Noding.ReturnCurrentNode());
+            Noding.Node[] possiblenodes = FindChilds(Link.Main.turntally, Noding.ReturnCurrentNode());
             int[] rewards = new int[possiblenodes.Length];
-            Parallel.For(0,possiblenodes.Length,j =>
-            {
-                Link.Logs.Input($"Bot : Thread for '{string.Join("", possiblenodes[j].Current)}' board started");
-                lock (rewards)
-                {
-                    rewards[j]=ReturnReward(FindEndNodesChilds(possiblenodes[j], Link.Main.turntally + 1));
-                }
-                Link.Logs.Input($"Bot : Thread for '{string.Join("", possiblenodes[j].Current)}' board exited with reward");
-            });
+            Parallel.For(0, possiblenodes.Length, j =>
+              {
+                  Link.Logs.Input($"Bot : Thread for '{string.Join("", possiblenodes[j].Current)}' board started");
+                  lock (rewards)
+                  {
+                      rewards[j] = ReturnReward(FindEndNodesChilds(possiblenodes[j], Link.Main.turntally + 1));
+                  }
+                  Link.Logs.Input($"Bot : Thread for '{string.Join("", possiblenodes[j].Current)}' board exited with reward");
+              });
             if (X)
             {
                 int tempbestreward = 0;
-                for(int i = 0; i < possiblenodes.Length; i++)
+                for (int i = 0; i < possiblenodes.Length; i++)
                 {
                     if (i == 0)
                     {
                         bestmv = possiblenodes[i];
                         tempbestreward = rewards[i];
                     }
-                    if (rewards[i]>tempbestreward)
+                    if (rewards[i] > tempbestreward)
                     {
                         bestmv = possiblenodes[i];
                         tempbestreward = rewards[i];
                     }
                 }
-                Link.Logs.Input($"Bot : Thread {string.Join("",bestmv.Current)} was decided");
+                Link.Logs.Input($"Bot : Thread {string.Join("", bestmv.Current)} was decided");
             }
             else
             {
                 int tempbestreward = 0;
                 for (int i = 0; i < possiblenodes.Length; i++)
                 {
-                    if (i==0)
+                    if (i == 0)
                     {
                         bestmv = possiblenodes[i];
                         tempbestreward = rewards[i];
@@ -382,7 +383,7 @@ namespace TicTacToe
             {
                 Parallel.For(0, children.Length, (i, state) =>
                 {
-                     reward += (int)children[i].reward;
+                    reward += (int)children[i].reward;
                 });
             }
             Link.Logs.IInput($"\nFound Total Reward {reward}");
@@ -415,14 +416,14 @@ namespace TicTacToe
             List<Noding.Node> children = new List<Noding.Node>();
             Parallel.ForEach(movesDones, mv =>
             {
-              if (ParentNode.Moves.Except(mv.movesdone).Count() == 1)
-              {
-                    
+                if (ParentNode.Moves.Except(mv.movesdone).Count() == 1)
+                {
+
                     lock (possible)
                     {
                         possible.AddRange(mv.Nodes);
-                    } 
-              }
+                    }
+                }
             });
             Parallel.ForEach(possible, node =>
              {
@@ -449,7 +450,7 @@ namespace TicTacToe
             //Link.Logs.IInput($"Finding Endnodes for '{string.Join("",parent.Current)}'");
             List<Noding.Node> endnode = new List<Noding.Node>();
             List<Thread> threads = new List<Thread>();
-            Noding.Node[] nodes =  FindChilds(turn,parent);
+            Noding.Node[] nodes = FindChilds(turn, parent);
             List<Noding.Node> Childstolookup = new List<Noding.Node>();
             if (nodes.Length > 0)
             {
@@ -461,7 +462,7 @@ namespace TicTacToe
                         //Link.Logs.IInput($"Bot : Found End Node '{string.Join("", nodes[i].Current)}' for parent '{string.Join("", parentnode.Current)}'");
                         lock (endnode)
                         {
-                            
+
                             endnode.Add(nodes[i]);
                         }
                     }
@@ -470,23 +471,23 @@ namespace TicTacToe
                         //Link.Logs.IInput($"Bot : Found Child Node '{string.Join("", nodes[i].Current)}' for parent '{string.Join("", parent.Current)}'");
                         lock (Childstolookup)
                         {
-                            
+
                             Childstolookup.Add(nodes[i]);
                         }
                     }
                 });
             }
-            Parallel.ForEach(Childstolookup,childs =>
-            {
-                Noding.Node[] nodestoadd = FindEndNodesChilds(childs, turn + 1);
-                if (nodestoadd.Length != 0)
-                {
-                    lock (endnode)
-                    {
-                        endnode.AddRange(nodestoadd);
-                    }
-                }
-            });
+            Parallel.ForEach(Childstolookup, childs =>
+             {
+                 Noding.Node[] nodestoadd = FindEndNodesChilds(childs, turn + 1);
+                 if (nodestoadd.Length != 0)
+                 {
+                     lock (endnode)
+                     {
+                         endnode.AddRange(nodestoadd);
+                     }
+                 }
+             });
             //Link.Logs.IInput("");
             return endnode.ToArray();
         }
@@ -498,14 +499,14 @@ namespace TicTacToe
         public static void Attachparent(string path)
         {
             string[] ncontent = File.ReadAllLines(path);
-            for (int i = 0;i < ncontent.Length; i++)
+            for (int i = 0; i < ncontent.Length; i++)
             {
                 if (ncontent[i].Contains("Parent Node : "))
                 {
                     string Eparentnodes = ncontent[i].Replace("Parent Node : ", "");
                     List<string> parents = new List<string>(Eparentnodes.Split(','));
                     bool alreadycontains = false;
-                    for(int j = 0;j < parents.Count; j++)
+                    for (int j = 0; j < parents.Count; j++)
                     {
                         if (parents[j] == tparentnode)
                         {
@@ -516,7 +517,7 @@ namespace TicTacToe
                     {
                         parents.Add(tparentnode);
                     }
-                    ncontent[i] = ($"Parent Node : {string.Join(",",parents)}");
+                    ncontent[i] = ($"Parent Node : {string.Join(",", parents)}");
 
                 }
             }

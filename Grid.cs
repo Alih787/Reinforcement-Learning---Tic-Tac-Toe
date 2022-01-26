@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace TicTacToe
 {
@@ -18,7 +15,7 @@ namespace TicTacToe
 
         public static bool CheckWinX()
         {
-            if ((grid[0] == "X" && grid[1] == "X" && grid[2] == "X")||
+            if ((grid[0] == "X" && grid[1] == "X" && grid[2] == "X") ||
                 (grid[3] == "X" && grid[4] == "X" && grid[5] == "X") ||
                 (grid[6] == "X" && grid[7] == "X" && grid[8] == "X") ||//rows horizontal
                 (grid[0] == "X" && grid[3] == "X" && grid[6] == "X") ||
@@ -57,9 +54,9 @@ namespace TicTacToe
         public static bool CheckDraw()
         {
             int filled = 0;
-            for(int i = 0; i < grid.Length; i++)
+            for (int i = 0; i < grid.Length; i++)
             {
-                if(grid[i] !=string.Empty)
+                if (grid[i] != string.Empty)
                 {
                     filled++;
                 }
@@ -89,7 +86,7 @@ namespace TicTacToe
 
         public static void Reset()
         {
-            for(int i = 0; i < grid.Length; i++)
+            for (int i = 0; i < grid.Length; i++)
             {
                 grid[i] = string.Empty;
             }
@@ -101,7 +98,7 @@ namespace TicTacToe
             {
                 return;
             }
-            for(int i = 0;i<buttons.Length;i++)
+            for (int i = 0; i < buttons.Length; i++)
             {
                 ((Button)buttons[i]).Text = grid[i];
                 if (((Button)buttons[i]).Text != string.Empty)

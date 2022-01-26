@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net45</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Description>Built To Demonstrate How AI Work.</Description>
     <StartupObject>TicTacToe.Program</StartupObject>
