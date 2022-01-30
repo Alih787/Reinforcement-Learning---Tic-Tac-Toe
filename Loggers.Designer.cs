@@ -38,19 +38,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Loggingbox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Loggingbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Loggingbox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Loggingbox.Location = new System.Drawing.Point(12, 8);
+            this.Loggingbox.Font = new System.Drawing.Font("Consolas", 12F);
+            this.Loggingbox.Location = new System.Drawing.Point(10, 7);
             this.Loggingbox.Name = "Loggingbox";
             this.Loggingbox.ReadOnly = true;
-            this.Loggingbox.Size = new System.Drawing.Size(570, 441);
+            this.Loggingbox.Size = new System.Drawing.Size(814, 693);
             this.Loggingbox.TabIndex = 16;
             this.Loggingbox.Text = "";
             // 
             // Loggers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 461);
+            this.ClientSize = new System.Drawing.Size(834, 711);
             this.Controls.Add(this.Loggingbox);
             this.Name = "Loggers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

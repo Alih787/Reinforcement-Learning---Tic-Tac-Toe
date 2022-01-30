@@ -10,7 +10,7 @@ namespace TicTacToe
         public void Valuenter(int i)
         {
             Grid.grid[i] = XorO;
-            Link.Logs.Input($"{name} - {XorO} Placed On {Link.Logs.Translate(i)}\n");
+            Link.Logs.Input($"{name} : {XorO} Placed On {Link.Logs.Translate(i)}\n");
         }
 
         public void PlayerPlace(object sender)
