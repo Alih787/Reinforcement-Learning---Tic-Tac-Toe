@@ -1,15 +1,15 @@
 # TicTacToe Computer That Uses Reinforcement Learning
 ## Usage
 ### Settings Overview
-![image](https://user-images.githubusercontent.com/98106107/151769284-e51c0864-7b6c-4e2c-8051-2c3bd17bd79e.png)
-this is the setting to pick what you want the application to do
+![image](https://user-images.githubusercontent.com/98106107/151769284-e51c0864-7b6c-4e2c-8051-2c3bd17bd79e.png)  
+this is the setting to pick what you want the application to do  
 #### Training of Agent
-![image](https://user-images.githubusercontent.com/98106107/151770379-9ec3a6d0-eff6-4103-bb0c-c60cae0a19e4.png)
-the first thing you must do (unless you have a model already) is to train the agent
-1. enter a integer value in the box
-2. press the train button
-![image](https://user-images.githubusercontent.com/98106107/151770783-7ad76c12-3b59-4126-a79a-95301ee54279.png)
-this window will popup to tell you the progress of the agent's training.
+![image](https://user-images.githubusercontent.com/98106107/151770379-9ec3a6d0-eff6-4103-bb0c-c60cae0a19e4.png)  
+the first thing you must do (unless you have a model already) is to train the agent  
+1. enter a integer value in the box  
+2. press the train button  
+![image](https://user-images.githubusercontent.com/98106107/151770783-7ad76c12-3b59-4126-a79a-95301ee54279.png)  
+this window will popup to tell you the progress of the agent's training.  
 #### Settings
 ![image](https://user-images.githubusercontent.com/98106107/151769521-8fc3de08-86a7-4e56-9357-69ea42ca8f39.png)
 the second thing you must do before playing a game is to change the settings :
