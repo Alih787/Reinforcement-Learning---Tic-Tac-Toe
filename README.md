@@ -2,7 +2,7 @@
 ## Usage
 ### Settings Overview
 ![image](https://user-images.githubusercontent.com/98106107/151769284-e51c0864-7b6c-4e2c-8051-2c3bd17bd79e.png)  
-this is the setting to pick what you want the application to do  
+these are the settings to pick what you want the application to do  
 ### Training of Agent
 ![image](https://user-images.githubusercontent.com/98106107/151770379-9ec3a6d0-eff6-4103-bb0c-c60cae0a19e4.png)  
 the first thing you must do (unless you have a model already) is to train the agent  
