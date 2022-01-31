@@ -8,6 +8,7 @@ this is the setting to pick what you want the application to do
 the first thing you must do (unless you have a model already) is to train the agent  
 1. enter a integer value in the box  
 2. press the train button  
+
 ![image](https://user-images.githubusercontent.com/98106107/151772163-f0fcb9e4-93e3-4785-af2f-ba2283008f6f.png)  
 this window will popup to tell you the progress of the agent's training.  
 #### Settings
