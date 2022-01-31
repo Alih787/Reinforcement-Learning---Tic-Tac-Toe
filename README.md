@@ -17,6 +17,7 @@ the second thing you must do before playing a game is to change the settings :
 * Exploration Percentage : the percentage chance the bot will do a random move (make value 0% stop the bot from using random moves)  
 * 2 Player : normal two player game with no bot where user controls both X and O  
 * Bot vs Bot : agent plays against itself switching from X and O to play the game without user input  
+* Go First : only works in 1 player and if checked will make you 'X' player.
 ### Start and Restart
 ![image](https://user-images.githubusercontent.com/98106107/151769450-d1bb0089-df32-451a-bfe1-83c62526e20b.png)  
 press start to start a game of tictactoe.  
