@@ -1,2 +1,2 @@
-## TicTacToe Computer That Uses Reinforcement Learning
-# Usage
+# TicTacToe Computer That Uses Reinforcement Learning
+## Usage
