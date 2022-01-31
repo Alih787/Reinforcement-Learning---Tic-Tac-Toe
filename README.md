@@ -29,4 +29,4 @@ click the 'show logs' button to show the log box.
 you can also get more indepth log of what is going on by checking the box.  
 
 ## Dependencies
-A [link] (https://www.microsoft.com/en-gb/download/details.aspx?id=30653 Microsoft .NET Framework 4.5)  
+[Microsoft .NET Framework 4.5](https://www.microsoft.com/en-gb/download/details.aspx?id=30653)  
