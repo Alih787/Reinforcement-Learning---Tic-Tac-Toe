@@ -11,20 +11,20 @@ the first thing you must do (unless you have a model already) is to train the ag
 ![image](https://user-images.githubusercontent.com/98106107/151770783-7ad76c12-3b59-4126-a79a-95301ee54279.png)  
 this window will popup to tell you the progress of the agent's training.  
 #### Settings
-![image](https://user-images.githubusercontent.com/98106107/151769521-8fc3de08-86a7-4e56-9357-69ea42ca8f39.png)
-the second thing you must do before playing a game is to change the settings :
-* Exploration Percentage : the percentage chance the bot will do a random move (make value 0% stop the bot from using random moves)
-* 2 Player : normal two player game with no bot where user controls both X and O
-* Bot vs Bot : agent plays against itself switching from X and O to play the game without user input
+![image](https://user-images.githubusercontent.com/98106107/151769521-8fc3de08-86a7-4e56-9357-69ea42ca8f39.png)  
+the second thing you must do before playing a game is to change the settings :  
+* Exploration Percentage : the percentage chance the bot will do a random move (make value 0% stop the bot from using random moves)  
+* 2 Player : normal two player game with no bot where user controls both X and O  
+* Bot vs Bot : agent plays against itself switching from X and O to play the game without user input  
 #### Start and Restart
-![image](https://user-images.githubusercontent.com/98106107/151769450-d1bb0089-df32-451a-bfe1-83c62526e20b.png)
-press start to start a game of tictactoe.
-![image](https://user-images.githubusercontent.com/98106107/151771188-d456ad00-e229-4e7a-8816-af89e89b1f24.png)
-if you ever want to quit the game press restart, and then you can press start again or tweak the settings.
+![image](https://user-images.githubusercontent.com/98106107/151769450-d1bb0089-df32-451a-bfe1-83c62526e20b.png)  
+press start to start a game of tictactoe.  
+![image](https://user-images.githubusercontent.com/98106107/151771188-d456ad00-e229-4e7a-8816-af89e89b1f24.png)  
+if you ever want to quit the game press restart, and then you can press start again or tweak the settings.  
 #### Log
-![image](https://user-images.githubusercontent.com/98106107/151771452-67250ed9-5635-4e2b-a72f-b07098a00ca2.png)
-click the 'show logs' button to show the log box.
-you can also get more indepth log of what is going on by checking the box.
+![image](https://user-images.githubusercontent.com/98106107/151771452-67250ed9-5635-4e2b-a72f-b07098a00ca2.png)  
+click the 'show logs' button to show the log box.  
+you can also get more indepth log of what is going on by checking the box.  
 
 ## Dependencies
-[Microsoft .NET Framework 4.5] (https://www.microsoft.com/en-gb/download/details.aspx?id=30653)
+[Microsoft .NET Framework 4.5] (https://www.microsoft.com/en-gb/download/details.aspx?id=30653)  
