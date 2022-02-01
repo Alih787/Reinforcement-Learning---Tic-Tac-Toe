@@ -1,5 +1,5 @@
-# TicTacToe Computer That Uses Reinforcement Learning  
 ## [Releases](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases)  
+* [Current Release](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases/tag/1.0.0)
 ## Usage  
 ### Settings Overview  
 ![image](https://user-images.githubusercontent.com/98106107/151769284-e51c0864-7b6c-4e2c-8051-2c3bd17bd79e.png)  
