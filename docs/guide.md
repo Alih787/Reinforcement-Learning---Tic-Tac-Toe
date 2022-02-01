@@ -33,5 +33,5 @@ click the 'show logs' button to show the log box.
 you can also get more indepth log of what is going on by checking the box.    
 
 # Pages  
-[Usage Guide](guide.md)  
+[Home](index.md)  
 [Code Breakdown](code.md)  
