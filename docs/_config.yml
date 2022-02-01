@@ -2,4 +2,4 @@ theme: jekyll-theme-cayman
 show_downloads: true
 markdown: kramdown
 title: Using Reinforcement Learning in Tic Tac Toe
-description: C# Demonstration of How Reinforcement Learning Works Using A Basic Game
+description: C Sharp Demonstration of How Reinforcement Learning Works Using A Basic Game
