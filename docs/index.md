@@ -1,4 +1,4 @@
- # [Releases](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases)  
+# [Releases](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases)  
 * [Current Release](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases/tag/1.0.0)  
 
 # Dependencies  
