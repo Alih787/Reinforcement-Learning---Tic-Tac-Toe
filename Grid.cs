@@ -4,7 +4,7 @@ namespace TicTacToe
 {
     static class Grid
     {
-        /**grid
+        /** grid
          * 0 1 2
          * 3 4 5
          * 6 7 8
@@ -63,7 +63,6 @@ namespace TicTacToe
             }
             if (filled == 9 && !CheckWinO() && !CheckWinX())
             {
-                Link.Logs.Input("Draw");
                 return true;
             }
             else
@@ -81,6 +80,25 @@ namespace TicTacToe
             else
             {
                 return false;
+            }
+        }
+
+        public static string TellWin()
+        {
+            if (CheckEnd())
+            {
+                if (CheckWinO())
+                {
+                    return "O";
+                }
+                else if (CheckWinX())
+                {
+                    return "X";
+                }
+                else return "Draw";
+            }
+            else{
+                return "None";
             }
         }
 

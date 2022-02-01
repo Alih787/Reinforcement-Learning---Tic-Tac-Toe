@@ -12,6 +12,7 @@ namespace TicTacToe
         public Loggers()
         {
             InitializeComponent();
+            Loggingbox.Text = string.Empty;
             Link.Logger = Loggingbox;
             Link.loggers = (Loggers)FindForm();
         }

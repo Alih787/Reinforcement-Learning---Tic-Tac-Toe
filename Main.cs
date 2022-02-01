@@ -153,7 +153,7 @@ namespace TicTacToe
         //Check for Game End
         void Endcheck()
         {
-            if (Grid.CheckEnd())//checks if game has ended
+            if (Grid.CheckEnd()&&!Training)//checks if game has ended
             {
                 if (MPlayer.Checked)//player vs player
                 {
@@ -226,50 +226,19 @@ namespace TicTacToe
                             break;
 
                     }
-                    if (Grid.CheckWinO())
-                    {
-
-                        
-                    }
-                    else if (Grid.CheckWinX())
-                    {
-                        
-                    }
-                    else if (Grid.CheckDraw())
-                    {
-                        
-                    }
                 }
                 //saving moves done after game
                 NodeSystem.Noding.Serialilse.Serial(NodeSystem.MModel, @".\Model.bin");
                 //setup for next game
-                if (!Training)
+                //log handling
+                Link.Logs.Input("Game : Ended\r");
+                Link.Logs.UpdateLog();
+
+                foreach (object obj in buttons)
                 {
-                    //log handling
-                    string state=Grid.TellWin();
-                    switch (state)
-                    {
-                        case "X":
-                            Link.Logs.Input("X Wins");
-                            break;
-                        case "O":
-                            Link.Logs.Input("O Wins");
-                            break;
-                        case "Draw":
-                            Link.Logs.Input("Draw");
-                            break;
-
-                    }
-                    Link.Logs.Input("Game Ended\n");
-                    Link.Logs.UpdateLog();
-
-                    foreach (object obj in buttons)
-                    {
-                        ((Button)obj).Enabled = false;
-                    }
-                    ingame = false;
-                        
+                    ((Button)obj).Enabled = false;
                 }
+                ingame = false;
             }
         }
 

@@ -13,6 +13,7 @@ namespace TicTacToe
     static class NodeSystem
     {
         public static string tparentnode = "---------";
+        public static Noding.Node[] opennodes;
         ///<summary>
         ///<para>storage of model</para>
         ///</summary>
@@ -212,6 +213,7 @@ namespace TicTacToe
                     Noding.foldermake(Link.Main.turntally, PresentNode);
                     Noding.Node current = Noding.ReturnCurrentNode();
                     Noding.GetNodes(Link.Main.turntally, current).Add(current);
+                    Link.Logs.Input($"Node : Making New Node '{string.Join("", PresentNode.Current)}'");
                     parentnode = current;
                 }
                 else
@@ -220,9 +222,11 @@ namespace TicTacToe
                     if (cnode.Current != null)
                     {
                         AttachParent(cnode);
+                        
                     }
                     parentnode = cnode;
                 }
+                Link.Logs.UpdateLog();
             });
 
             //for textside
@@ -281,20 +285,36 @@ namespace TicTacToe
             Random random = new Random();
             Noding.Node bestmv = new Noding.Node();
             Noding.Node[] possiblenodes = FindChilds(Link.Main.turntally, Noding.ReturnCurrentNode());
-            int[] rewards = new int[possiblenodes.Length];
+            opennodes = possiblenodes;
+            double[] rewards = new double[possiblenodes.Length];
+            int ThreadDecided = -1;
             Parallel.For(0, possiblenodes.Length, j =>
               {
-                  Link.Logs.Input($"Bot : Thread for '{string.Join("", possiblenodes[j].Current)}' board started");
-                  lock (rewards)
+                  if (possiblenodes[j].reward == null)
                   {
-                      rewards[j] = ReturnReward(FindEndNodesChilds(possiblenodes[j], Link.Main.turntally + 1), possiblenodes[j]);
+                      Link.Logs.Input($"Bot : Thread [{j}] for '{string.Join("", possiblenodes[j].Current)}' board started");
+                      lock (rewards)
+                      {
+                          rewards[j] = ReturnReward(FindEndNodesChilds(possiblenodes[j], j, possiblenodes[j], Link.Main.turntally + 1));
+                      }
+                      Link.Logs.Input($"Bot : Thread [{j}] for '{string.Join("", possiblenodes[j].Current)}' board exited with reward {Math.Round(rewards[j],4)}");
+                      Link.Logs.UpdateLog();
                   }
-                  Link.Logs.Input($"Bot : Thread for '{string.Join("", possiblenodes[j].Current)}' board exited with reward");
-                  Link.Logs.UpdateLog();
+                  /*else
+                  {
+                      quickend = true;
+                      bestmv=(possiblenodes[j]);
+                      Link.Logs.Input($"Bot : Thread [{j}] '{string.Join("", possiblenodes[j].Current)}' Found Win Move");
+
+                  }*/
               });
+            /*if (quickend)
+            {
+                return bestmv;
+            }*/
             if (X)
             {
-                int tempbestreward = 0;
+                double tempbestreward = 0;
                 for (int i = 0; i < possiblenodes.Length; i++)
                 {
                     if (i == 0)
@@ -308,26 +328,28 @@ namespace TicTacToe
                         tempbestreward = rewards[i];
                     }
                 }
-                Link.Logs.Input($"Bot : '{string.Join("", bestmv.Current)}' was decided");
+                Link.Logs.Input($"Bot : Thread [{ThreadDecided}] '{string.Join("", bestmv.Current)}' was decided");
                 Link.Logs.UpdateLog();
             }
             else
             {
-                int tempbestreward = 0;
+                double tempbestreward = 0;
                 for (int i = 0; i < possiblenodes.Length; i++)
                 {
                     if (i == 0)
                     {
                         bestmv = possiblenodes[i];
                         tempbestreward = rewards[i];
+                        ThreadDecided = i;
                     }
                     if (rewards[i] < tempbestreward)
                     {
                         bestmv = possiblenodes[i];
                         tempbestreward = rewards[i];
+                        ThreadDecided = i;
                     }
                 }
-                Link.Logs.Input($"Bot : Thread {string.Join("", bestmv.Current)} was decided");
+                Link.Logs.Input($"Bot : Thread [{ThreadDecided}] '{string.Join("", bestmv.Current)}' was decided");
                 Link.Logs.UpdateLog();
             }
             Link.Logs.Input("");
@@ -339,18 +361,16 @@ namespace TicTacToe
         ///<summary>
         ///<para>Returns reward of endnodes</para>
         ///</summary>
-        public static int ReturnReward(Noding.Node[] children,Noding.Node ParentedNode)
+        public static double ReturnReward(Noding.Node[] children)
         {
-            int reward = 0;
+            double reward = 0;
             if (children.Length > 0)
             {
                 Parallel.For(0, children.Length, (i, state) =>
                 {
-                    reward += (int)children[i].reward;
+                reward += (int)(children[i].reward) * (1.0f / (1.0f + (float)Math.Exp((9-(children[i].Current.Count(possibledash => possibledash == '-'))))));
                 });
             }
-            Link.Logs.IInput($"Bot : Found Total Reward {reward} For {string.Join("",ParentedNode.Current)}");
-            Link.Logs.UpdateLog();
             return reward;
         }
         ///<summary>
@@ -433,7 +453,7 @@ namespace TicTacToe
                   {
                       if (pnode.Current.SequenceEqual(ParentNode.Current))
                       {
-                          Link.Logs.IInput($"Bot : Found Child Nodes '{string.Join("", node.Current)}' for '{string.Join("", ParentNode.Current)}'");
+                          //Link.Logs.IInput($"Bot : Found Child Node '{string.Join("", node.Current)}' for '{string.Join("", ParentNode.Current)}'");
                           lock (children)
                           {
                               children.Add(node);
@@ -446,7 +466,7 @@ namespace TicTacToe
         ///<summary>
         ///<para>finds end nodes of node provided</para>
         ///</summary>
-        public static Noding.Node[] FindEndNodesChilds(Noding.Node parent, int turn)
+        public static Noding.Node[] FindEndNodesChilds(Noding.Node rootnode,int j,Noding.Node parent, int turn)
         {
             List<Noding.Node> endnode = new List<Noding.Node>();
             List<Thread> threads = new List<Thread>();
@@ -459,10 +479,9 @@ namespace TicTacToe
                     bool isendnode = nodes[i].reward.HasValue;
                     if (isendnode)
                     {
-                        Link.Logs.IInput($"Bot : Found End Node '{string.Join("", nodes[i].Current)}' with reward : {nodes[i].reward} for parent '{string.Join("", parentnode.Current)}'");
+                        Link.Logs.IInput($"Bot : Found End Node '{string.Join("", nodes[i].Current)}' For Thread [{j}] '{string.Join("", rootnode.Current)}', reward : {nodes[i].reward}");
                         lock (endnode)
                         {
-
                             endnode.Add(nodes[i]);
                         }
                     }
@@ -478,7 +497,7 @@ namespace TicTacToe
             }
             Parallel.ForEach(Childstolookup, childs =>
              {
-                 Noding.Node[] nodestoadd = FindEndNodesChilds(childs, turn + 1);
+                 Noding.Node[] nodestoadd = FindEndNodesChilds(rootnode,j,childs, turn + 1);
                  if (nodestoadd.Length != 0)
                  {
                      lock (endnode)
@@ -529,6 +548,7 @@ namespace TicTacToe
             if (!node.ParentNodes.AsParallel().Any(n => n.Current.SequenceEqual(parentnode.Current)))
             {
                 node.ParentNodes.Add(parentnode);
+                Link.Logs.Input($"Node : Adding New Parent '{string.Join("", node.Current)}' To '{string.Join("", parentnode.Current)}'");
             }
         }
 

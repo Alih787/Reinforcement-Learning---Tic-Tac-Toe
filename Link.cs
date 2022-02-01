@@ -11,9 +11,11 @@ namespace TicTacToe
         static public RichTextBox Logger;
         static public CheckBox Botters;
 
+        //for logger
         static public class Logs
         {
             static public bool Enabled = true;
+            static public string Text = string.Empty;
             static public string Translate(int i)
             {
                 if (Enabled)
@@ -32,28 +34,37 @@ namespace TicTacToe
                         default: return "Null";
                     };
                 }
-                else
-                {
-                    return "Null";
-                }
+                return "Null";
             }
             static public void Input(string input)
             {
                 if (Enabled)
                 {
-                    Logger.Invoke((Action)delegate
-                    {
-                        Logger.Text += $"{input}\n";
-                    });
+                    Text += $"{input}\n";
                 }
             }
             static public void IInput(string input)
             {
                 if (Enabled && Link.loggers.indepth)
                 {
+                    Text += $"{input}\r";
+                }
+            }
+            static public void UpdateLog()
+            {
+                if (Enabled)
+                {
                     Logger.Invoke((Action)delegate
                     {
-                        Logger.Text += $"{input}\n";
+                        Logger.Text += $"{Text}";
+
+                        if (Logger.Text.Length - 1 > 0)
+                        {
+                            Logger.Select(Logger.Text.Length - 1, 1);
+                            Logger.ScrollToCaret();
+                        }
+                        
+                        Text = string.Empty;
                     });
                 }
             }
@@ -64,6 +75,7 @@ namespace TicTacToe
                     Logger.Invoke((Action)delegate
                     {
                         Logger.Text = string.Empty;
+                        Text = string.Empty;
                     });
                 }
             }
