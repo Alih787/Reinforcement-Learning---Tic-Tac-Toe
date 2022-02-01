@@ -1,4 +1,3 @@
-https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases/download/1.0.0/TicTacToe.With.Model.zip
 # TicTacToe Computer That Uses Reinforcement Learning  
 ## [Releases](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases)  
 ## Usage  
