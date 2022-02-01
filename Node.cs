@@ -300,18 +300,13 @@ namespace TicTacToe
                       Link.Logs.Input($"Bot : Thread [{j}] for '{string.Join("", possiblenodes[j].Current)}' board exited with reward {Math.Round(rewards[j],4)}");
                       Link.Logs.UpdateLog();
                   }
-                  /*else
+                  else
                   {
-                      quickend = true;
-                      bestmv=(possiblenodes[j]);
-                      Link.Logs.Input($"Bot : Thread [{j}] '{string.Join("", possiblenodes[j].Current)}' Found Win Move");
-
-                  }*/
+                      rewards[j] = (int)possiblenodes[j].reward;
+                      Link.Logs.Input($"Bot : Thread [{j}] for '{string.Join("", possiblenodes[j].Current)}' board exited with reward {possiblenodes[j].reward}");
+                      Link.Logs.UpdateLog();
+                  }
               });
-            /*if (quickend)
-            {
-                return bestmv;
-            }*/
             if (X)
             {
                 double tempbestreward = 0;
