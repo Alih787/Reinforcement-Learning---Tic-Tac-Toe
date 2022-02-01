@@ -30,4 +30,8 @@ if you ever want to quit the game press restart, and then you can press start ag
 ## Log  
 ![image](https://user-images.githubusercontent.com/98106107/151771452-67250ed9-5635-4e2b-a72f-b07098a00ca2.png)  
 click the 'show logs' button to show the log box.  
-you can also get more indepth log of what is going on by checking the box.  
+you can also get more indepth log of what is going on by checking the box.    
+
+# Pages  
+[Usage Guide](guide.md)  
+[Code Breakdown](code.md)  
