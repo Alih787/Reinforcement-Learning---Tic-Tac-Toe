@@ -42,7 +42,7 @@
             this.Loggingbox.Location = new System.Drawing.Point(10, 7);
             this.Loggingbox.Name = "Loggingbox";
             this.Loggingbox.ReadOnly = true;
-            this.Loggingbox.Size = new System.Drawing.Size(814, 693);
+            this.Loggingbox.Size = new System.Drawing.Size(679, 693);
             this.Loggingbox.TabIndex = 16;
             this.Loggingbox.Text = "";
             // 
@@ -50,7 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 711);
+            this.ClientSize = new System.Drawing.Size(699, 711);
             this.Controls.Add(this.Loggingbox);
             this.Name = "Loggers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

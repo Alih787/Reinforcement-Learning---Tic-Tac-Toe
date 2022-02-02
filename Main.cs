@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TicTacToe
@@ -240,6 +241,10 @@ namespace TicTacToe
                 }
                 ingame = false;
             }
+            else
+            {
+                NodeSystem.Noding.Serialilse.Serial(NodeSystem.MModel, @".\Model.bin");
+            }
         }
 
         //When Player Presses Button
@@ -335,6 +340,7 @@ namespace TicTacToe
         ///</summary>
         private void TrainerB_Click(object sender, EventArgs e)
         {
+            //setup
             Ingame(true);
             Training = true;
             Link.Logs.Enabled = false;
@@ -348,10 +354,10 @@ namespace TicTacToe
                     TrainProg trainers = new TrainProg();
                     trainers.Show();
                     trainers.progressBar.Invoke((Action)delegate { trainers.progressBar.Maximum = reper; });
-                    for (int i = 0; i < reper; i++)
+                    for(int i = 0 ; i < reper; i++)
                     {
                         trainers.progressBar.Invoke((Action)delegate { trainers.progressBar.PerformStep(); });
-                        trainers.Label.Invoke((Action)delegate { trainers.Label.Text = $"Training : {i + 1}/{reper}"; });
+                        trainers.Label.Invoke((Action)delegate { trainers.Label.Text = $"Training : {trainers.progressBar.Value}/{reper}"; });
                         Start(sender, e);
                         Reset(sender, e);
                     }
@@ -437,6 +443,10 @@ namespace TicTacToe
         ///<para>closes evereything properly</para>
         ///</summary>
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            shutdown();
+        }
+        public void shutdown()
         {
             Link.loggers.Invoke((Action)delegate
             {

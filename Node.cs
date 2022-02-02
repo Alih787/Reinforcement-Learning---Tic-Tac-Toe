@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace TicTacToe
 {
-    static class NodeSystem
+    public static class NodeSystem
     {
         public static string tparentnode = "---------";
         public static Noding.Node[] opennodes;
@@ -60,11 +60,11 @@ namespace TicTacToe
                             fs.Close();
                             return obj;
                         }
-                        catch (SerializationException)
+                        catch (Exception)
                         {
-                            MessageBox.Show("Bad File","'Model.bin' is Corrupt. Please Delete All Model Files",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                            Link.Main.Close();
-                            throw new Exception("Corrupt File");
+                            MessageBox.Show("'Model.bin' is Corrupt. Please Delete All Model Files", "Bad Files", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            Link.Main.shutdown();
+                            return (Model)new object();
                         }
                     }
                     else

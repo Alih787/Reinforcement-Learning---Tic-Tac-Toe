@@ -53,8 +53,8 @@ namespace TicTacToe
 
                     if (stored != new NodeSystem.Noding.Node())
                     {
-                        Link.Logs.Input("Bot : Reinforced Move");
                         Valuenter(NodeSystem.MoveDiff(NodeSystem.CurrentMoves(), NodeSystem.ReturnMoves(stored)));
+                        Link.Logs.Input("Bot : Reinforced Move");
                     }
                     else
                     {
@@ -66,11 +66,7 @@ namespace TicTacToe
                     RandomMove();
                 }
             }
-            catch (NullReferenceException)
-            {
-                RandomMove();
-            }
-            catch (ArgumentException)
+            catch (Exception)
             {
                 RandomMove();
             }

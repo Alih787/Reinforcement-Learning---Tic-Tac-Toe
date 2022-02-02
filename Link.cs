@@ -57,14 +57,20 @@ namespace TicTacToe
                     Logger.Invoke((Action)delegate
                     {
                         Logger.Text += $"{Text}";
-
-                        if (Logger.Text.Length - 1 > 0)
-                        {
-                            Logger.Select(Logger.Text.Length - 1, 1);
-                            Logger.ScrollToCaret();
-                        }
-                        
                         Text = string.Empty;
+                    });
+
+                    Logger.Invoke((Action)delegate
+                    {
+                        try
+                        {
+                            if (Logger.Text.Length - 1 > 0)
+                            {
+                                Logger.Select(Logger.Text.Length - 1, 1);
+                                Logger.ScrollToCaret();
+                            }
+                        } 
+                        catch (Exception) { }
                     });
                 }
             }
