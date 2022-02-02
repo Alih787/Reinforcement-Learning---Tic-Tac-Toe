@@ -15,6 +15,7 @@ namespace TicTacToe
             Loggingbox.Text = string.Empty;
             Link.Logger = Loggingbox;
             Link.loggers = (Loggers)FindForm();
+            WindowState = FormWindowState.Minimized;
         }
 
         private void Loggers_FormClosing(object sender, FormClosingEventArgs e)
