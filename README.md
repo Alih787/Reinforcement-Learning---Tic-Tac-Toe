@@ -9,8 +9,9 @@ these are the settings to pick what you want the application to do
 ### Training of Agent
 ![image](https://user-images.githubusercontent.com/98106107/151770379-9ec3a6d0-eff6-4103-bb0c-c60cae0a19e4.png)  
 the first thing you must do (unless you have a model already) is to train the agent  
-1. enter a integer value in the box  
-2. press the train button  
+1. i would recommend changing exploration to 100%
+2. enter a integer value in the box  
+3. press the train button  
 
 ![image](https://user-images.githubusercontent.com/98106107/151772163-f0fcb9e4-93e3-4785-af2f-ba2283008f6f.png)  
 this window will popup to tell you the progress of the agent's training.  
