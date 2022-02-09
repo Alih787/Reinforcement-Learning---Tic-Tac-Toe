@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace TicTacToe
@@ -53,7 +55,7 @@ namespace TicTacToe
 
                     if (stored != new NodeSystem.Noding.Node())
                     {
-                        Valuenter(NodeSystem.MoveDiff(NodeSystem.CurrentMoves(), NodeSystem.ReturnMoves(stored)));
+                        Valuenter(NodeSystem.MoveDiff(NodeSystem.CurrentMoves().ToArray(), NodeSystem.ReturnMoves(stored)));
                         Link.Logs.Input("Bot : Reinforced Move");
                     }
                     else
@@ -63,7 +65,7 @@ namespace TicTacToe
                 }
                 else
                 {
-                    RandomMove();
+                    NewMove();
                 }
             }
             catch (Exception)
@@ -109,8 +111,21 @@ namespace TicTacToe
         {
             Link.Logs.Input("Bot : Random Move");
             Random random = new Random();
-            int[] Amove = NodeSystem.CurrentMoves();
+            int[] Amove = NodeSystem.CurrentMoves().ToArray();
             Valuenter(Amove[random.Next(Amove.Length)]);
+        }
+        public static void NewMove()
+        {
+            Link.Logs.Input("Bot : New Move");
+            if (Link.Main.turntally == 9)
+            {
+                RandomMove();
+                return;
+            }
+            else
+            {
+                Valuenter(NodeSystem.findnewmove(Link.Main.turntally,NodeSystem.Noding.ReturnCurrentNode()));
+            }
         }
     }
 }

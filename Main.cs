@@ -241,10 +241,6 @@ namespace TicTacToe
                 }
                 ingame = false;
             }
-            else
-            {
-                NodeSystem.Noding.Serialilse.Serial(NodeSystem.MModel, @".\Model.bin");
-            }
         }
 
         //When Player Presses Button
@@ -362,7 +358,7 @@ namespace TicTacToe
                         Reset(sender, e);
                     }
                     trainers.Close();
-
+                    NodeSystem.Noding.Serialilse.Serial(NodeSystem.MModel, @".\Model.bin");
                 }
                 catch (Exception a)
                 {
