@@ -313,45 +313,45 @@ the function in bestmove that searches every branch to find node with rewards to
 ```c#
 public static Noding.Node[] FindEndNodesChilds(Noding.Node rootnode,int j,Noding.Node parent, int turn)
 {
-List<Noding.Node> endnode = new List<Noding.Node>();
-List<Thread> threads = new List<Thread>();
-Noding.Node[] nodes = FindChilds(turn, parent);
-List<Noding.Node> Childstolookup = new List<Noding.Node>();
-if (nodes.Length > 0)
-{
-    Parallel.For(0, nodes.Length, (i, state) =>
+    List<Noding.Node> endnode = new List<Noding.Node>();
+    List<Thread> threads = new List<Thread>();
+    Noding.Node[] nodes = FindChilds(turn, parent);
+    List<Noding.Node> Childstolookup = new List<Noding.Node>();
+    if (nodes.Length > 0)
     {
-        bool isendnode = nodes[i].reward.HasValue;
-        if (isendnode)
+        Parallel.For(0, nodes.Length, (i, state) =>
         {
-            Link.Logs.IInput($"Bot : Found End Node '{string.Join("", nodes[i].Current)}' For Thread [{j}] '{string.Join("", rootnode.Current)}', reward {nodes[i].reward}");
-            lock (endnode)
+            bool isendnode = nodes[i].reward.HasValue;
+            if (isendnode)
             {
-                endnode.Add(nodes[i]);
+                Link.Logs.IInput($"Bot : Found End Node '{string.Join("", nodes[i].Current)}' For Thread [{j}] '{string.Join("", rootnode.Current)}', reward {nodes[i].reward}");
+                lock (endnode)
+                {
+                    endnode.Add(nodes[i]);
+                }
             }
-        }
-        else if (!isendnode)
-        {
-            lock (Childstolookup)
+            else if (!isendnode)
             {
+                lock (Childstolookup)
+                {
 
-                Childstolookup.Add(nodes[i]);
+                    Childstolookup.Add(nodes[i]);
+                }
             }
-        }
-    });
-}
-Parallel.ForEach(Childstolookup, childs =>
- {
-     Noding.Node[] nodestoadd = FindEndNodesChilds(rootnode,j,childs, turn + 1);
-     if (nodestoadd.Length != 0)
+        });
+    }
+    Parallel.ForEach(Childstolookup, childs =>
      {
-         lock (endnode)
+         Noding.Node[] nodestoadd = FindEndNodesChilds(rootnode,j,childs, turn + 1);
+         if (nodestoadd.Length != 0)
          {
-             endnode.AddRange(nodestoadd);
+             lock (endnode)
+             {
+                 endnode.AddRange(nodestoadd);
+             }
          }
-     }
- });
-return endnode.ToArray();
+     });
+    return endnode.ToArray();
 }
 ```
 ### Return Reward  
@@ -362,10 +362,10 @@ public static double ReturnReward(Noding.Node[] children)
     double reward = 0;
     if (children.Length > 0)
     {
-        Parallel.For(0, children.Length, (i, state) =>
+        for(int i = 0;i< children.Length;i++)
         {
-        reward += (int)(children[i].reward) * (1.0f / (1.0f + (float)Math.Exp((9-(children[i].Current.Count(possibledash => possibledash == '-'))))));
-        });
+            reward += ((int)(children[i].reward)) * Math.Exp(-((9 -children[i].Current.Count(possibledash => possibledash == '-'))-Link.Main.turntally));
+        }
     }
     return reward;
 }
