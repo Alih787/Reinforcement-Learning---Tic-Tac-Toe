@@ -198,6 +198,7 @@ public static void AImove()
 ``` 
 ## Finding Best Move Possible  
 function gets the child nodes of current possition and then finds which one is the to do base on the amount of reward it has.  
+gets the rewards for each possible node and then compares to find which one is best.  
 ```c#
 //in node.cs
 public static Noding.Node BestMove(bool X)
@@ -273,7 +274,9 @@ public static Noding.Node BestMove(bool X)
 }
 ```
 ### Finding Child Nodes  
-the function in bestmove that finds the child node
+the function in bestmove that finds the child node.  
+looks to the next turn of nodes and finds any node that have parent node the node in parameters.  
+time searching is cut by catagorising nodes by the moves it can do from current state.  
 ```c#
 public static Noding.Node[] FindChilds(int turn, Noding.Node ParentNode)
 {
@@ -309,7 +312,9 @@ public static Noding.Node[] FindChilds(int turn, Noding.Node ParentNode)
 }
 ```
 ### Finding End Nodes  
-the function in bestmove that searches every branch to find node with rewards to return.
+the function in bestmove that searches every branch to find node with rewards to return.  
+gets the children with findchilds() then iterates through every one to find if there is any nodes that has rewards.  
+to find all the nodes that have rewards this function must be recursive so it can look multiple turns ahead.  
 ```c#
 public static Noding.Node[] FindEndNodesChilds(Noding.Node rootnode,int j,Noding.Node parent, int turn)
 {
@@ -355,7 +360,8 @@ public static Noding.Node[] FindEndNodesChilds(Noding.Node rootnode,int j,Noding
 }
 ```
 ### Return Reward  
-find total reward of the combined children node from current node.
+find total reward of the combined children node from current node.  
+this is calculated with node reward X depth multiplier (where multiplier increases the closer the node is to the current board).  
 ```c#
 public static double ReturnReward(Noding.Node[] children)
 {
