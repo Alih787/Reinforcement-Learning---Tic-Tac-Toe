@@ -1,6 +1,7 @@
 # TicTacToe Program That Uses Reinforcement Learning
 ## [Website](https://alih787.github.io/Reinforcement-Learning-Tic-Tac-Toe/)
 ## [Releases](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases)
+download and extract zip of current release and run the exe file
 * [Current Release](https://github.com/Alih787/Reinforcement-Learning-Tic-Tac-Toe/releases/tag/1.1.1)
 ## Usage
 ### Settings Overview
