@@ -1,4 +1,4 @@
-# Usage Guide  
+# User Guide  
 
 ## Settings Overview  
 ![image](https://user-images.githubusercontent.com/98106107/151769284-e51c0864-7b6c-4e2c-8051-2c3bd17bd79e.png)  
