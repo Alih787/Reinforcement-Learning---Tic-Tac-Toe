@@ -378,4 +378,4 @@ public static double ReturnReward(Noding.Node[] children)
 ```
 # Pages  
 [Home](index.md)  
-[Usage Guide](guide.md)  
+[User Guide](guide.md)  
