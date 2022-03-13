@@ -40,14 +40,20 @@ namespace TicTacToe
             {
                 if (Enabled)
                 {
-                    Text += $"{input}\n";
+                    lock (Text)
+                    {
+                        Text += $"{input}\n";
+                    }
                 }
             }
             static public void IInput(string input)
             {
                 if (Enabled && Link.loggers.indepth)
                 {
-                    Text += $"{input}\r";
+                    lock (Text)
+                    {
+                        Text += $"{input}\r";
+                    }
                 }
             }
             static public void UpdateLog()
@@ -56,8 +62,11 @@ namespace TicTacToe
                 {
                     Logger.Invoke((Action)delegate
                     {
-                        Logger.Text += $"{Text}";
-                        Text = string.Empty;
+                        lock (Text)
+                        {
+                            Logger.Text += $"{Text}";
+                            Text = string.Empty;
+                        }
                     });
 
                     Logger.Invoke((Action)delegate
@@ -80,8 +89,11 @@ namespace TicTacToe
                 {
                     Logger.Invoke((Action)delegate
                     {
-                        Logger.Text = string.Empty;
-                        Text = string.Empty;
+                        lock (Text)
+                        {
+                            Logger.Text = string.Empty;
+                            Text = string.Empty;
+                        }
                     });
                 }
             }

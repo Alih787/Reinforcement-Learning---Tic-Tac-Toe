@@ -13,7 +13,6 @@ namespace TicTacToe
     public static class NodeSystem
     {
         public static string tparentnode = "---------";
-        public static Noding.Node[] opennodes;
         ///<summary>
         ///<para>storage of model</para>
         ///</summary>
@@ -288,7 +287,6 @@ namespace TicTacToe
             Random random = new Random();
             Noding.Node bestmv = new Noding.Node();
             Noding.Node[] possiblenodes = FindChilds(Link.Main.turntally, Noding.ReturnCurrentNode());
-            opennodes = possiblenodes;
             double[] rewards = new double[possiblenodes.Length];
             int ThreadDecided = -1;
             Parallel.For(0, possiblenodes.Length, j =>
@@ -513,6 +511,11 @@ namespace TicTacToe
         public static Noding.Node[] FindEndNodesChilds(Noding.Node rootnode,int j,Noding.Node parent, int turn)
         {
             List<Noding.Node> endnode = new List<Noding.Node>();
+            if (parent.reward.HasValue)//
+            {
+                endnode.Add(parent);
+                return endnode.ToArray();
+            }
             List<Thread> threads = new List<Thread>();
             Noding.Node[] nodes = FindChilds(turn, parent);
             List<Noding.Node> Childstolookup = new List<Noding.Node>();
